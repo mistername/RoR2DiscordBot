@@ -89,7 +89,9 @@ namespace bot
 
             _client.Disconnected += _client_Disconnected;
 
+#if DEBUG
             _client.LatencyUpdated += _client_LatencyUpdated;
+#endif
 
             tasksList.Add(PingTask);
             tasksList.Add(AddAdminTask);
@@ -158,7 +160,7 @@ namespace bot
             }
         }
 
-        #region tasks
+#region tasks
         private async Task PingTask(SocketUserMessage message)
         {
             if (message.Content == "ping")
@@ -223,7 +225,7 @@ namespace bot
             }
         }
 
-        #region DevTasks
+#region DevTasks
 
         public bool IsAdmin(ulong id)
         {
@@ -266,7 +268,7 @@ namespace bot
                 }
             }
         }
-        #endregion
-        #endregion
+#endregion
+#endregion
     }
 }
