@@ -280,7 +280,11 @@ namespace bot
                         return;
                     }
                 }
-                else
+
+                await message.AddReactionAsync(NoEmoji);
+            }
+        }
+
         private async Task RemoveAdminTask(SocketUserMessage message)
         {
             if (message.Content.StartsWith("!remove_admin"))
