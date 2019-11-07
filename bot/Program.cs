@@ -50,6 +50,12 @@ namespace bot
             File.WriteAllText(adminPath, JsonConvert.SerializeObject(AdminList));
         }
 
+        public void RemoveAdmin(ulong newAdmin)
+        {
+            AdminList.Remove(newAdmin);
+            File.WriteAllText(adminPath, JsonConvert.SerializeObject(AdminList));
+        }
+
         public static void Main(string[] args)
         {
             if (args.Length == 1)
@@ -95,6 +101,7 @@ namespace bot
 
             tasksList.Add(PingTask);
             tasksList.Add(AddAdminTask);
+            tasksList.Add(RemoveAdminTask);
             tasksList.Add(QuitTask);
             tasksList.Add(RandomTask);
             tasksList.Add(UpvoteTask);
@@ -263,9 +270,21 @@ namespace bot
                     }
                 }
                 else
+        private async Task RemoveAdminTask(SocketUserMessage message)
+        {
+            if (message.Content.StartsWith("!remove_admin"))
+            {
+                if (message.Author.Id == 185474185701621760)
                 {
-                    await message.AddReactionAsync(NoEmoji);
+                    var split = message.Content.Split(' ');
+                    if (ulong.TryParse(split[1], out ulong newAdmin))
+                    {
+                        RemoveAdmin(newAdmin);
+                        return;
+                    }
                 }
+
+                await message.AddReactionAsync(NoEmoji);
             }
         }
 #endregion
