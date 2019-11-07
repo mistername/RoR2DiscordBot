@@ -105,6 +105,7 @@ namespace bot
             tasksList.Add(QuitTask);
             tasksList.Add(RandomTask);
             tasksList.Add(UpvoteTask);
+            tasksList.Add(paddyPingTask);
 
             // Block this task until the program is closed.
             while (!_quit)
@@ -229,6 +230,16 @@ namespace bot
             {
                 await message.AddReactionAsync(_upvoteEmote);
                 await message.AddReactionAsync(_downvoteEmote);
+            }
+        }
+
+        private const ulong PADDY_ID = 232548273242636288;
+
+        private async Task paddyPingTask(SocketUserMessage message)
+        {
+            if (message.Content.Contains("!ping_paddy"))
+            {
+                await message.Channel.SendMessageAsync($"<@{PADDY_ID}>");
             }
         }
 
